@@ -104,6 +104,17 @@ function append(node, config, isSupported) {
 
 function init(options) {
   const config = assign({}, defaults, options);
+
+  let callback;
+
+  if (config.mode === 'append') {
+    callback = append;
+  } else if (config.mode === 'replace') {
+    callback = replace;
+  } else {
+    throw new Error(`Unsupported mode '${config.mode}'`);
+  }
+
   const isSupported = checkIfSupported(config);
   const matchedElements = document.querySelectorAll('[data-whatsapp]');
 
@@ -112,13 +123,7 @@ function init(options) {
       config.elementCallback(matchedElements[i]);
     }
 
-    if (config.mode === 'append') {
-      append(matchedElements[i], config, isSupported);
-    } else if (config.mode === 'replace') {
-      replace(matchedElements[i], config, isSupported);
-    } else {
-      throw new Error(`Unsupported mode '${config.mode}'`);
-    }
+    callback(matchedElements[i], config, isSupported);
   }
 }
 
