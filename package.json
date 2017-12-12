@@ -5,8 +5,8 @@
   "module": "src/wasap.js",
   "scripts": {
     "test": "eslint src",
-    "build:full": "tarima -fqe dist",
-    "build:min": "tarima -Ofqe dist '**:{basedir}/{name}.min.js'",
+    "build:full": "tarima -Ufqe dist",
+    "build:min": "npm run build:full -- -OR '**:{basedir}/{name}.min.js'",
     "build": "npm run build:full && npm run build:min",
     "dev": "tarima -des"
   },
@@ -19,8 +19,7 @@
     ],
     "bundleOptions": {
       "rollup": {
-        "bundle": "wasap",
-        "format": "umd"
+        "bundle": "wasap"
       },
       "extensions": {
         "js": "es6"

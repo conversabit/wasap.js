@@ -1,0 +1,5 @@
+*.log
+.tarima
+.DS_Store
+/coverage
+/node_modules
