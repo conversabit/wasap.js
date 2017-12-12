@@ -9,7 +9,7 @@ const defaults = {
   enableIf: /android|iphone|ipad/i,
   protocolIf: /android|iphone|ipad/i,
   uaString: window.navigator.userAgent,
-  openCallback: window.open,
+  openCallback: null,
   elementCallback: null,
   newNodeSelector: 'a.whatsapp-link',
 };
@@ -70,7 +70,10 @@ function setupLink(node, newEl, config) {
         params = { text: params };
       }
 
-      config.openCallback(buildLink(assign({}, options, params), baseURI));
+      const url = buildLink(assign({}, options, params), baseURI);
+      const open = config.openCallback || window.open;
+
+      open(url);
     });
   }
 }
