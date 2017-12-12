@@ -1,26 +1,29 @@
 'use strict';
 
+const RE_SELECTOR = /([.#]?[^\s#.]+)/;
+
+const WHATSAPP_API_PROTOCOL = 'whatsapp://send';
+const WHATSAPP_API_URL = 'https://api.whatsapp.com/api/send';
+
 const defaults = {
-  triggerIf: /android|ios|ipad/i,
+  enableIf: /android|iphone|ipad/i,
+  protocolIf: /android|iphone|ipad/i,
   uaString: window.navigator.userAgent,
-  mode: 'append',
-  newNodeSelector: 'a',
-  whatsappApiProtocol: 'whatsapp://send',
-  whatsappApiUrl: 'https://api.whatsapp.com/api/send',
-  promptMessage: 'What do you want to say?',
+  openCallback: window.open,
   elementCallback: null,
+  newNodeSelector: 'a.whatsapp-link',
 };
 
-function checkIfSupported(config) {
-  if (config.triggerIf instanceof RegExp) {
-    return config.triggerIf.test(config.uaString);
+function checkIfCallback(value, config) {
+  if (value instanceof RegExp) {
+    return value.test(config.uaString);
   }
 
-  if (typeof config.triggerIf === 'function') {
-    return config.triggerIf();
+  if (typeof value === 'function') {
+    return value();
   }
 
-  return !!config.triggerIf;
+  return !!value;
 }
 
 function assign(target) {
@@ -35,62 +38,66 @@ function assign(target) {
   return target;
 }
 
-function setupLink(node, newEl, config, isSupported) {
-  let fixedLink = isSupported
-    ? config.whatsappApiProtocol
-    : config.whatsappApiUrl;
+function buildLink(config, baseURI) {
+  const params = [];
 
-  if (node.dataset.whatsapp) {
-    fixedLink += `?phone=${node.dataset.whatsapp}`;
-  }
-
-  if (newEl.tagName === 'A') {
-    newEl.href = fixedLink;
-  }
-
-  newEl.addEventListener('click', e => {
-    if (!isSupported) {
-      e.preventDefault();
-    }
-
-    const msg = (typeof node.dataset.whatsappPrompt !== 'undefined'
-      ? prompt(node.dataset.whatsappPrompt || config.promptMessage) // eslint-disable-line no-alert
-      : null) || node.dataset.whatsappMessage;
-
-    const url = msg
-      ? `${fixedLink}${fixedLink.indexOf('?') === -1 ? '?' : '&'}text=${msg}`
-      : fixedLink;
-
-    if (newEl.tagName === 'A') {
-      newEl.href = url;
-    }
-
-    if (!isSupported) {
-      window.open(url);
+  Object.keys(config).forEach(prop => {
+    if (config[prop]) {
+      params.push(`${prop}=${encodeURIComponent(config[prop])}`);
     }
   });
+
+  return `${baseURI}${params.length ? `?${params.join('&')}` : ''}`;
+}
+
+function setupLink(node, newEl, config) {
+  const baseURI = checkIfCallback(config.protocolIf, config)
+    ? WHATSAPP_API_PROTOCOL
+    : WHATSAPP_API_URL;
+
+  const options = {
+    text: node.dataset.message,
+    phone: node.dataset.whatsapp,
+  };
+
+  if (newEl.tagName === 'A') {
+    newEl.href = buildLink(options, baseURI);
+  }
+
+  if (typeof config.elementCallback === 'function') {
+    config.elementCallback(node, params => {
+      if (typeof params === 'string') {
+        params = { text: params };
+      }
+
+      config.openCallback(buildLink(assign({}, options, params), baseURI));
+    });
+  }
 }
 
 function makeEl(config) {
-  // TODO: allow a#foo.bar syntax as shortcut
-  const target = document.createElement(config.newNodeSelector);
+  const parts = config.newNodeSelector
+    .split(RE_SELECTOR)
+    .filter(Boolean);
+
+  const target = document.createElement(parts[0]);
+
+  for (let i = 1; i < parts.length; i += 1) {
+    if (parts[i]) {
+      if (parts[i].charAt() === '.') {
+        target.classList.add(parts[i].substr(1));
+      }
+
+      if (parts[i].charAt() === '#') {
+        target.id = parts[i].substr(1);
+      }
+    }
+  }
 
   return target;
 }
 
-function replace(node, config, isSupported) {
-  const newEl = makeEl(config);
-  const body = node.innerHTML;
-
-  node.parentNode.insertBefore(newEl, node);
-  node.parentNode.removeChild(node);
-
-  newEl.innerHTML = body;
-
-  setupLink(node, newEl, config, isSupported);
-}
-
-function append(node, config, isSupported) {
+function append(node, config) {
   const newEl = makeEl(config);
   const body = node.innerHTML;
 
@@ -99,31 +106,19 @@ function append(node, config, isSupported) {
 
   newEl.innerHTML = body;
 
-  setupLink(node, newEl, config, isSupported);
+  setupLink(node, newEl, config);
 }
 
 function init(options) {
   const config = assign({}, defaults, options);
+  const isEnabled = checkIfCallback(config.enableIf, config);
 
-  let callback;
+  if (isEnabled) {
+    const matchedElements = document.querySelectorAll('[data-whatsapp]');
 
-  if (config.mode === 'append') {
-    callback = append;
-  } else if (config.mode === 'replace') {
-    callback = replace;
-  } else {
-    throw new Error(`Unsupported mode '${config.mode}'`);
-  }
-
-  const isSupported = checkIfSupported(config);
-  const matchedElements = document.querySelectorAll('[data-whatsapp]');
-
-  for (let i = 0; i < matchedElements.length; i += 1) {
-    if (typeof config.elementCallback === 'function') {
-      config.elementCallback(matchedElements[i]);
+    for (let i = 0; i < matchedElements.length; i += 1) {
+      append(matchedElements[i], config);
     }
-
-    callback(matchedElements[i], config, isSupported);
   }
 }
 

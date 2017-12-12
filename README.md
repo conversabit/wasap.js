@@ -17,19 +17,22 @@ wasap.init();
 
 ### API
 
-**➡ `triggerIf`** (regex|function|boolean, defaults to `/android|iphone|ipad/i`)
+**➡ `enableIf`** (regex|function|boolean, defaults to `/android|iphone|ipad/i`)
 
 Platforms supported currently, if regex, matches against window.navigator.userAgent. When used as a function it can be more modular, and the boolean disables or enables for every platform.
 
-**➡ `newNodeSelector`** (string, defaults to a)
+**➡ `protocolIf`** (regex|function|boolean, defaults to `/android|iphone|ipad/i`)
 
-The element that will be added (either replacing or appending the target element), which tag name should it have? If a, it will create the href attribute. In the future it will support IDs and classes.
+Todo
 
-**➡ `whatsappApiUrl`** (string, defaults to whatsapp://send)
+**➡ `openCallback`** (function, defaults to `window.open`)
 
-Altough WhatsApp's API states that it should create a link to https://api.whatsapp.com/api/send, it is not working.
+If `elementCallback` enabled, you could prevent a click from triggering to do a custom action. After this custom behaviour, this function defines how the user will be redirected.
 
 **➡ `elementCallback`** (function)
 
 Callback made to each of the elements found, so you can customize its behaviour (click callbacks, other events, modify the node's content, etc.)
 
+**➡ `newNodeSelector`** (string, defaults to a)
+
+The element that will be added (either replacing or appending the target element), which tag name should it have? If a, it will create the href attribute. In the future it will support IDs and classes.
