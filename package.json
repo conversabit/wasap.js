@@ -1,0 +1,46 @@
+{
+  "name": "wasap.js",
+  "version": "0.0.0",
+  "main": "dist/wasap.js",
+  "module": "src/wasap.js",
+  "scripts": {
+    "test": "eslint src",
+    "build:full": "tarima -fqe dist",
+    "build:min": "tarima -Ofqe dist '**:{basedir}/{name}.min.js'",
+    "build": "npm run build:full && npm run build:min",
+    "dev": "tarima -des"
+  },
+  "tarima": {
+    "src": "src",
+    "dest": "dist",
+    "bundle": true,
+    "rename": [
+      "**:{fullpath/1}"
+    ],
+    "bundleOptions": {
+      "rollup": {
+        "bundle": "wasap",
+        "format": "umd"
+      },
+      "extensions": {
+        "js": "es6"
+      }
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/conversabit/wasap.js.git"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/conversabit/wasap.js#readme",
+  "devDependencies": {
+    "buble": "^0.18.0",
+    "chokidar": "^1.7.0",
+    "eslint": "^4.11.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "google-closure-compiler-js": "^20171203.0.0",
+    "rollup": "^0.52.1",
+    "tarima": "^3.11.0"
+  }
+}
