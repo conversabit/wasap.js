@@ -5,17 +5,22 @@
   "module": "src/wasap.js",
   "scripts": {
     "test": "eslint src",
-    "build:full": "tarima -Ufqe dist",
-    "build:min": "npm run build:full -- -OR '**:{basedir}/{name}.min.js'",
-    "build": "npm run build:full && npm run build:min",
+    "build_full": "tarima -Ufqe dist",
+    "build_min": "npm run build_full -- -OR '**:{basedir}/{name}.min.js'",
+    "build": "npm run build_full && npm run build_min",
     "dev": "tarima -des"
   },
   "tarima": {
     "src": "src",
-    "dest": "dist",
-    "bundle": true,
+    "public": ".",
+    "dest": ".",
+    "bundle": [
+      "**/*.js"
+    ],
     "rename": [
-      "**:{fullpath/1}"
+      "**/*.js:dist/{fullpath/1}",
+      "**/demos/**:{fullpath/1}",
+      "**/tests/**:{fullpath/1}"
     ],
     "bundleOptions": {
       "rollup": {
