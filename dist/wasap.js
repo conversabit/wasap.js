@@ -64,7 +64,7 @@ function setupLink(node, newEl, config) {
     : WHATSAPP_API_URL;
 
   var options = {
-    text: node.dataset.message,
+    text: node.dataset.whatsappMessage,
     phone: node.dataset.whatsapp,
   };
 

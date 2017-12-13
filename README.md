@@ -3,7 +3,7 @@ wasap.js
 
 ### Installation
 
-First, add the data-whatsapp attribute to the nodes you want to be clickable:
+First, add the `data-whatsapp` attribute to the nodes you want to be clickable:
 
 ```
 <span data-whatsapp="5210000000000">Reach me via WhatsApp!</span>
@@ -15,15 +15,22 @@ Then include the JS file and initialize it.
 wasap.init();
 ```
 
+### Element options
+
+`data-whatsapp` is required, it's recommended to be a `<span>` tag (or any inline element for that matter), and it must not be an `<a>` element.
+
+- `data-whatsapp` (required) • Be sure to use the international phone format for better results and use just numbers—no hyphens, spaces or signs.
+- `data-whatsapp-message` (optional) • Preset a message.
+
 ### API
 
 **➡ `enableIf`** (regex|function|boolean, defaults to `/android|iphone|ipad/i`)
 
-Platforms supported currently, if regex, matches against window.navigator.userAgent. When used as a function it can be more modular, and the boolean disables or enables for every platform.
+Platforms supported currently, if regex, matches against `window.navigator.userAgent`. When used as a function it can be more modular, and the boolean disables or enables for every platform.
 
 **➡ `protocolIf`** (regex|function|boolean, defaults to `/android|iphone|ipad/i`)
 
-Todo
+If enabled, what conditions should be met to redirect the user to the `whatsapp` protocol instead of the `http` URL, which isn't working on mobile at the moment.
 
 **➡ `openCallback`** (function, defaults to `window.open`)
 
@@ -35,4 +42,14 @@ Callback made to each of the elements found, so you can customize its behaviour 
 
 **➡ `newNodeSelector`** (string, defaults to a)
 
-The element that will be added (either replacing or appending the target element), which tag name should it have? If a, it will create the href attribute. In the future it will support IDs and classes.
+The element that will be appended to the target element, which tag name should it have? If a, it will create the href attribute. It supports IDs and classes.
+
+### Contribute
+
+1. Install NodeJS ([NVM](https://github.com/creationix/nvm/blob/master/nvm.sh))
+2. Run `nvm use 4 && npm install`
+3. Then `npm run dev`
+
+### Roadmap
+
+- [ ] Tests
