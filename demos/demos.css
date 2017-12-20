@@ -1,0 +1,37 @@
+html, body { background: #fff; color: #333; font: 16px/1.5 Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
+
+.wrap { max-width: 960px; margin: 0 auto; }
+
+.ctr { text-align: center; }
+
+.lft { text-align: left; }
+
+.rgt { text-align: right; }
+
+pre { white-space: pre-wrap; font-size: 0.65rem; }
+
+pre.code { position: relative; padding: 15px 7px 10px 7px; background: #fafafa; }
+
+pre.code:before { content: 'Code'; position: absolute; top: 1px; font-size: 0.5rem; text-transform: uppercase; color: #ccc; }
+
+pre.code-html:before { content: 'HTML'; }
+
+pre.code-js:before { content: 'JavaScript'; }
+
+.demo--area { background: #eee; display: flex; min-height: 220px; position: relative; }
+
+.demo--area-cont { box-sizing: border-box; flex: 1; align-self: center; }
+
+.demo--area-label { position: absolute; top: 0; right: 4px; text-transform: uppercase; font-size: 0.75rem; font-weight: bold; color: #aaa; }
+
+.grid { display: grid; grid-template-columns: calc(60% - 5px) calc(40% - 5px); grid-column-gap: 10px; }
+
+.grid .grid--col { box-sizing: border-box; padding: 20px; }
+
+#footer { background: #eaeaea; }
+
+#footer .grid { display: grid; grid-template-columns: calc(50% - 5px) calc(50% - 5px); grid-column-gap: 10px; }
+
+@media screen and (max-width: 960px) { .wrap { padding-right: 7px; padding-left: 7px; } }
+
+@media screen and (max-width: 640px) { .grid { display: grid; grid-template-columns: 100%; grid-column-gap: 0; grid-row-gap: 10px; } }

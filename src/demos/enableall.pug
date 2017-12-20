@@ -1,0 +1,27 @@
+extend _layout
+
+block content
+  .demo--area
+    .demo--area-label
+      | Demo area
+    .demo--area-cont
+      .ctr
+        | <span data-whatsapp="5210000000000">This will always be a link, it's enabled for all users</span>
+        | <br><small>It will use the protocol (whatsapp://) if it's on mobile, else, it will use the URL.</small>
+
+block codedemo
+  h4 Source
+  pre.code.code-html
+    | &lt;span data-whatsapp="5210000000000">This will always be a link, it's enabled for all users&lt;/span>
+    | &lt;br>&lt;small>It will use the protocol (whatsapp://) if it's on mobile, else, it will use the URL.&lt;/small>
+  pre.code.code-js
+    | wasap.init({
+    |   enableIf: true
+    | })
+
+block run
+  script( src="wasap.js" )
+  script.
+    wasap.init({
+      enableIf: true
+    })

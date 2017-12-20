@@ -1,5 +1,21 @@
 extend _layout
 
+block content
+  .demo--area
+    .demo--area-label
+      | Demo area • Mobile-only
+    .demo--area-cont
+      .ctr
+        | <span data-whatsapp="5210000000000">This will be clickable on mobile</span>
+
+block codedemo
+  h4 Source
+  pre.code.code-html
+    | &lt;span data-whatsapp="5210000000000">This will be clickable on mobile&lt;/span>
+  pre.code.code-js
+    | wasap.init()
+
 block run
+  script( src="wasap.js" )
   script.
-    console.log('FIXME')
+    wasap.init()

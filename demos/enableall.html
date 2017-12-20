@@ -18,16 +18,22 @@
         <div class="grid">
           <div class="grid--col">
             <div class="demo--area">
-              <div class="demo--area-label">Demo area • Mobile-only</div>
+              <div class="demo--area-label">Demo area</div>
               <div class="demo--area-cont">
-                <div class="ctr"><span data-whatsapp="5210000000000">This will be clickable on mobile</span></div>
+                <div class="ctr">
+                  <span data-whatsapp="5210000000000">This will always be a link, it's enabled for all users</span>
+                  <br><small>It will use the protocol (whatsapp://) if it's on mobile, else, it will use the URL.</small>
+                </div>
               </div>
             </div>
           </div>
           <div class="grid--col">
             <h4>Source</h4>
-            <pre class="code code-html">&lt;span data-whatsapp="5210000000000">This will be clickable on mobile&lt;/span></pre>
-            <pre class="code code-js">wasap.init()</pre>
+            <pre class="code code-html">&lt;span data-whatsapp="5210000000000">This will always be a link, it's enabled for all users&lt;/span>
+&lt;br>&lt;small>It will use the protocol (whatsapp://) if it's on mobile, else, it will use the URL.&lt;/small></pre>
+            <pre class="code code-js">wasap.init({
+  enableIf: true
+})</pre>
             <h4>More demos</h4>
             <ol>
               <li><a href="index.html">Basic</a></li>
@@ -50,6 +56,10 @@
       </div>
     </div>
     <script src="wasap.js"></script>
-    <script>wasap.init()</script>
+    <script>
+      wasap.init({
+        enableIf: true
+      })
+    </script>
   </body>
 </html>

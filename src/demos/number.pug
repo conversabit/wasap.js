@@ -1,0 +1,39 @@
+extend _layout
+
+block content
+  .demo--area
+    .demo--area-label
+      | Demo area • Mobile-only
+    .demo--area-cont
+      .ctr
+        | <span data-whatsapp="5210000000000">Click and edit the destination phone on the fly</span>
+
+block codedemo
+  h4 Source
+  pre.code.code-html
+    | &lt;span data-whatsapp="5210000000000">Click and edit the destination phone on the fly&lt;/span>
+  pre.code.code-js
+    | wasap.init({
+    |   elementCallback: function(el, wasap_send){
+    |     el.addEventListener('click', function(e){
+    |       e.preventDefault();
+    |       var prompt_message = prompt('Say hello!', 'Hello from wasap.js');
+    |       if(!prompt_message) return;
+    |       wasap_send({ message: prompt_message });
+    |     });
+    |   }
+    | })
+
+block run
+  script( src="wasap.js" )
+  script.
+    wasap.init({
+      elementCallback: function(el, wasap_send){
+        el.addEventListener('click', function(e){
+          e.preventDefault();
+          var prompt_phone = prompt('Enter a number, or use the default', el.dataset.whatsapp);
+          if(!prompt_phone) return;
+          wasap_send({ phone: prompt_phone });
+        });
+      }
+    })

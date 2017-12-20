@@ -5,31 +5,55 @@ html.no-js(lang='en')
     meta(http-equiv='x-ua-compatible' content='ie=edge')
     title wasap.js demo
     meta(name='viewport' content='width=device-width, initial-scale=1')
-    link(rel='stylesheet' href='/demos/style.css')
+    link(rel='stylesheet' href='demos.css')
 
   body
     header
       .wrap
         block header
-          h1 Demo
+          h1 wasap.js • Demos
 
     #main
       .wrap
-        block content
-          | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-          | tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-          | quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-          | consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-          | cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-          | proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        .grid
+          .grid--col
+            block content
+          .grid--col
+            block codedemo
+              | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+              | tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+              | quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+              | consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+              | cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+              | proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            h4
+              | More demos
+            ol
+              li
+                a(href='index.html')
+                  | Basic
+              li
+                a(href='message.html')
+                  | Predefined message
+              li
+                a(href='enableall.html')
+                  | Enable on all platforms
+              li
+                a(href='multiple.html')
+                  | Multiple elements
+              li
+                a(href='prompt.html')
+                  | Prompt for a message
+              li
+                a(href='number.html')
+                  | Change destination number on the fly
 
-        p.links
-          a(href='/demos/') DEMOS
 
     #footer
       .wrap
-        ul.footer-links
-          li
-            a(href='#') FIXME
-
+        .grid
+          .grid--col.lft
+            a(href='http://conversabit.com/wasap.js/') wasap.js
+          .grid--col.rgt
+            a(href='https://github.com/conversabit/wasap.js') Contribute on Github
     block run

@@ -20,14 +20,23 @@
             <div class="demo--area">
               <div class="demo--area-label">Demo area • Mobile-only</div>
               <div class="demo--area-cont">
-                <div class="ctr"><span data-whatsapp="5210000000000">This will be clickable on mobile</span></div>
+                <div class="ctr"><span data-whatsapp="5210000000000">Click and edit the destination phone on the fly</span></div>
               </div>
             </div>
           </div>
           <div class="grid--col">
             <h4>Source</h4>
-            <pre class="code code-html">&lt;span data-whatsapp="5210000000000">This will be clickable on mobile&lt;/span></pre>
-            <pre class="code code-js">wasap.init()</pre>
+            <pre class="code code-html">&lt;span data-whatsapp="5210000000000">Click and edit the destination phone on the fly&lt;/span></pre>
+            <pre class="code code-js">wasap.init({
+  elementCallback: function(el, wasap_send){
+    el.addEventListener('click', function(e){
+      e.preventDefault();
+      var prompt_message = prompt('Say hello!', 'Hello from wasap.js');
+      if(!prompt_message) return;
+      wasap_send({ message: prompt_message });
+    });
+  }
+})</pre>
             <h4>More demos</h4>
             <ol>
               <li><a href="index.html">Basic</a></li>
@@ -50,6 +59,17 @@
       </div>
     </div>
     <script src="wasap.js"></script>
-    <script>wasap.init()</script>
+    <script>
+      wasap.init({
+        elementCallback: function(el, wasap_send){
+          el.addEventListener('click', function(e){
+            e.preventDefault();
+            var prompt_phone = prompt('Enter a number, or use the default', el.dataset.whatsapp);
+            if(!prompt_phone) return;
+            wasap_send({ phone: prompt_phone });
+          });
+        }
+      })
+    </script>
   </body>
 </html>

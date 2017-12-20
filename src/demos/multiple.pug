@@ -1,0 +1,21 @@
+extend _layout
+
+block content
+  .demo--area
+    .demo--area-label
+      | Demo area • Mobile-only
+    .demo--area-cont
+      .ctr
+        | You can reach us via <strong data-whatsapp="5210000000000">this link</strong>, or <strong data-whatsapp="5210000000000">this other link</strong>.
+
+block codedemo
+  h4 Source
+  pre.code.code-html
+    | You can reach us via &lt;strong data-whatsapp="5210000000000">this link&lt;/strong>, or &lt;strong data-whatsapp="5210000000000">this other link&lt;/strong>.
+  pre.code.code-js
+    | wasap.init()
+
+block run
+  script( src="wasap.js" )
+  script.
+    wasap.init()

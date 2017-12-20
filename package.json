@@ -53,6 +53,7 @@
     "eslint-plugin-import": "^2.8.0",
     "google-closure-compiler-js": "^20171203.0.0",
     "node-sass": "^4.7.2",
+    "pug": "^2.0.0-rc.4",
     "rollup": "^0.52.1",
     "tarima": "^3.11.0",
     "tarima-lr": "^0.3.2"
