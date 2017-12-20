@@ -1,0 +1,168 @@
+extend _layout
+
+block content
+  .demo--area
+    .demo--area-label
+      | Demo area
+    .demo--area-cont
+      .ctr
+        | Remember that you can <span data-whatsapp="5210000000000">do something awesome</span> with wasap.js!
+
+block codedemo
+  h4 Source
+  p
+    em
+      | (To be fair, there's a lot going behind the scenes, better take a look a the source code!)
+  pre.code.code-html
+    | Remember that you can &lt;span data-whatsapp="5210000000000">do something awesome&lt;/span> with wasap.js!
+  pre.code.code-js
+    | wasap.init({
+    |   enableIf: true,
+    |   openCallback: function(url){
+    |     window.location = url;
+    |   },
+    |   elementCallback: function(el, wasap_send){
+    |     tippy(el, {trigger: 'manual', arrow: true, placement: 'bottom', hideOnClick: false, html: '#vuejs-template-init', interactive: true});
+    |     el._tippy.show();
+    |
+    |     App = new Vue({
+    |       el: '#vuejsapp',
+    |       template: '#vuejs-template',
+    |       data: {
+    |         status: 'initial',
+    |         whatsapp: {
+    |           message: ''
+    |         }
+    |       },
+    |       computed: {
+    |         initialStatus: function(){
+    |           return this.status == 'initial';
+    |         },
+    |         formStatus: function(){
+    |           return this.status == 'form';
+    |         },
+    |         endStatus: function(){
+    |           return this.status == 'end';
+    |         }
+    |       },
+    |       methods: {
+    |         start: function(){
+    |           if(this.status == 'initial'){
+    |             this.status = 'form';
+    |             setTimeout(()=>{
+    |               this.$refs.textarea.focus();
+    |             }, 50);
+    |           }
+    |
+    |         },
+    |         submit: function(){
+    |           if(!this.whatsapp.message){
+    |             alert('Please type something');
+    |             this.$refs.textarea.focus();
+    |             return;
+    |           }
+    |
+    |           this.status = 'end';
+    |           setTimeout(()=>{
+    |             el._tippy.hide();
+    |             wasap_send({ message: this.whatsapp.message });
+    |           }, 1500);
+    |         }
+    |       }
+    |     });
+    |
+    |     el.addEventListener('click', function(e){
+    |       e.preventDefault();
+    |       App.start();
+    |     });
+    |   }
+    | })
+
+block run
+  script( type="text/template" id="vuejs-template-init" )
+    <div id="vuejsapp">app</div>
+  script( type="text/template" id="vuejs-template" )
+    <div>
+      <div v-if="initialStatus">
+        | Click to start
+      </div>
+      <div class="lft" v-if="formStatus">
+        <form @submit.prevent="submit" action="?">
+          <p>
+            <label>Message:<br>
+            <textarea ref="textarea" class="textarea input input--full" type="phone" v-model="whatsapp.message" placeholder="Say hello!"></textarea></label>
+          </p>
+          <p>
+            <button class="button">Start chat</button>
+          </p>
+        </form>
+      </div>
+      <div v-if="endStatus">
+        | Thanks!
+      </div>
+    </div>
+  script( src="wasap.js" )
+  script( src="https://unpkg.com/tippy.js@2.0.8/dist/tippy.all.min.js")
+  script( src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js")
+  script.
+    wasap.init({
+      enableIf: true,
+      openCallback: function(url){
+        window.location = url;
+      },
+      elementCallback: function(el, wasap_send){
+        tippy(el, {trigger: 'manual', arrow: true, placement: 'bottom', hideOnClick: false, html: '#vuejs-template-init', interactive: true});
+        el._tippy.show();
+
+        App = new Vue({
+          el: '#vuejsapp',
+          template: '#vuejs-template',
+          data: {
+            status: 'initial',
+            whatsapp: {
+              message: ''
+            }
+          },
+          computed: {
+            initialStatus: function(){
+              return this.status == 'initial';
+            },
+            formStatus: function(){
+              return this.status == 'form';
+            },
+            endStatus: function(){
+              return this.status == 'end';
+            }
+          },
+          methods: {
+            start: function(){
+              if(this.status == 'initial'){
+                this.status = 'form';
+                setTimeout(()=>{
+                  this.$refs.textarea.focus();
+                }, 50);
+              }
+
+            },
+            submit: function(){
+              if(!this.whatsapp.message){
+                alert('Please type something');
+                this.$refs.textarea.focus();
+                return;
+              }
+
+              this.status = 'end';
+              setTimeout(()=>{
+                el._tippy.hide();
+                wasap_send({ message: this.whatsapp.message });
+              }, 1500);
+            }
+          }
+        });
+
+        el.addEventListener('click', function(e){
+          e.preventDefault();
+          App.start();
+        });
+      }
+    })

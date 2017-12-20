@@ -8,6 +8,18 @@ html, body { background: #fff; color: #333; font: 16px/1.5 Helvetica, Arial, san
 
 .rgt { text-align: right; }
 
+.input { border: 0; display: block; box-sizing: border-box; padding: 3px 5px; font-family: sans-serif; }
+
+.input--full { width: 100%; }
+
+textarea { min-width: 100%; min-height: 55px; }
+
+button.button { display: block; width: 100%; padding: 5px 10px; font-weight: bold; }
+
+.tippy-tooltip p { margin-top: 0px; margin-bottom: 10px; }
+
+label { font-size: 0.65rem; }
+
 pre { white-space: pre-wrap; font-size: 0.65rem; }
 
 pre.code { position: relative; padding: 15px 7px 10px 7px; background: #fafafa; }

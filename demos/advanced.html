@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>wasap.js demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="demos.css">
+  </head>
+  <body>
+    <header>
+      <div class="wrap">
+        <h1>wasap.js • Demos</h1>
+      </div>
+    </header>
+    <div id="main">
+      <div class="wrap">
+        <div class="grid">
+          <div class="grid--col">
+            <div class="demo--area">
+              <div class="demo--area-label">Demo area</div>
+              <div class="demo--area-cont">
+                <div class="ctr">Remember that you can <span data-whatsapp="5210000000000">do something awesome</span> with wasap.js!</div>
+              </div>
+            </div>
+          </div>
+          <div class="grid--col">
+            <h4>Source</h4>
+            <p><em>(To be fair, there's a lot going behind the scenes, better take a look a the source code!)</em></p>
+            <pre class="code code-html">Remember that you can &lt;span data-whatsapp="5210000000000">do something awesome&lt;/span> with wasap.js!</pre>
+            <pre class="code code-js">wasap.init({
+  enableIf: true,
+  openCallback: function(url){
+    window.location = url;
+  },
+  elementCallback: function(el, wasap_send){
+    tippy(el, {trigger: 'manual', arrow: true, placement: 'bottom', hideOnClick: false, html: '#vuejs-template-init', interactive: true});
+    el._tippy.show();
+
+    App = new Vue({
+      el: '#vuejsapp',
+      template: '#vuejs-template',
+      data: {
+        status: 'initial',
+        whatsapp: {
+          message: ''
+        }
+      },
+      computed: {
+        initialStatus: function(){
+          return this.status == 'initial';
+        },
+        formStatus: function(){
+          return this.status == 'form';
+        },
+        endStatus: function(){
+          return this.status == 'end';
+        }
+      },
+      methods: {
+        start: function(){
+          if(this.status == 'initial'){
+            this.status = 'form';
+            setTimeout(()=>{
+              this.$refs.textarea.focus();
+            }, 50);
+          }
+
+        },
+        submit: function(){
+          if(!this.whatsapp.message){
+            alert('Please type something');
+            this.$refs.textarea.focus();
+            return;
+          }
+
+          this.status = 'end';
+          setTimeout(()=>{
+            el._tippy.hide();
+            wasap_send({ message: this.whatsapp.message });
+          }, 1500);
+        }
+      }
+    });
+
+    el.addEventListener('click', function(e){
+      e.preventDefault();
+      App.start();
+    });
+  }
+})</pre>
+            <h4>More demos</h4>
+            <ol>
+              <li><a href="index.html">Basic</a></li>
+              <li><a href="message.html">Predefined message</a></li>
+              <li><a href="enableall.html">Enable on all platforms</a></li>
+              <li><a href="multiple.html">Multiple elements</a></li>
+              <li><a href="prompt.html">Prompt for a message</a></li>
+              <li><a href="number.html">Change destination number on the fly</a></li>
+              <li><a href="advanced.html">Advanced demo</a></li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="footer">
+      <div class="wrap">
+        <div class="grid">
+          <div class="grid--col lft"><a href="http://conversabit.com/wasap.js/">wasap.js</a></div>
+          <div class="grid--col rgt"><a href="https://github.com/conversabit/wasap.js">Contribute on Github</a></div>
+        </div>
+      </div>
+    </div>
+    <script type="text/template" id="vuejs-template-init"><div id="vuejsapp">app</div></script>
+    <script type="text/template" id="vuejs-template">
+      <div>
+<div v-if="initialStatus">Click to start</div>
+<div class="lft" v-if="formStatus">
+<form @submit.prevent="submit" action="?">
+<p>
+<label>Message:<br>
+<textarea ref="textarea" class="textarea input input--full" type="phone" v-model="whatsapp.message" placeholder="Say hello!"></textarea></label>
+</p>
+<p>
+<button class="button">Start chat</button>
+</p>
+</form>
+</div>
+<div v-if="endStatus">Thanks!</div>
+</div>
+    </script>
+    <script src="wasap.js"></script>
+    <script src="https://unpkg.com/tippy.js@2.0.8/dist/tippy.all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js"></script>
+    <script>
+      wasap.init({
+        enableIf: true,
+        openCallback: function(url){
+          window.location = url;
+        },
+        elementCallback: function(el, wasap_send){
+          tippy(el, {trigger: 'manual', arrow: true, placement: 'bottom', hideOnClick: false, html: '#vuejs-template-init', interactive: true});
+          el._tippy.show();
+      
+          App = new Vue({
+            el: '#vuejsapp',
+            template: '#vuejs-template',
+            data: {
+              status: 'initial',
+              whatsapp: {
+                message: ''
+              }
+            },
+            computed: {
+              initialStatus: function(){
+                return this.status == 'initial';
+              },
+              formStatus: function(){
+                return this.status == 'form';
+              },
+              endStatus: function(){
+                return this.status == 'end';
+              }
+            },
+            methods: {
+              start: function(){
+                if(this.status == 'initial'){
+                  this.status = 'form';
+                  setTimeout(()=>{
+                    this.$refs.textarea.focus();
+                  }, 50);
+                }
+      
+              },
+              submit: function(){
+                if(!this.whatsapp.message){
+                  alert('Please type something');
+                  this.$refs.textarea.focus();
+                  return;
+                }
+      
+                this.status = 'end';
+                setTimeout(()=>{
+                  el._tippy.hide();
+                  wasap_send({ message: this.whatsapp.message });
+                }, 1500);
+              }
+            }
+          });
+      
+          el.addEventListener('click', function(e){
+            e.preventDefault();
+            App.start();
+          });
+        }
+      })
+    </script>
+  </body>
+</html>
