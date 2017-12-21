@@ -127,6 +127,9 @@ $grid-gap: 10px;
   }
 }
 @media screen and (max-width: 640px){
+  .iblock-if-mobile{
+    display: inline-block;
+  }
   .grid{
     display: grid;
     grid-template-columns: 100%;

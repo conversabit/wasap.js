@@ -20,7 +20,7 @@
             <div class="demo--area">
               <div class="demo--area-label">Demo area</div>
               <div class="demo--area-cont">
-                <div class="ctr">Remember that you can <span data-whatsapp="5210000000000">do something awesome</span> with wasap.js!</div>
+                <div class="ctr">Remember that you can <span data-whatsapp="5210000000000" class="iblock-if-mobile">do something awesome</span> with wasap.js!</div>
               </div>
             </div>
           </div>
@@ -68,16 +68,16 @@
 
         },
         submit: function(){
-          if(!this.whatsapp.message){
+          if(!this.whatsapp.text){
             alert('Please type something');
             this.$refs.textarea.focus();
             return;
           }
 
           this.status = 'end';
+          wasap_send({ text: this.whatsapp.text });
           setTimeout(()=>{
             el._tippy.hide();
-            wasap_send({ message: this.whatsapp.message });
           }, 1500);
         }
       }
@@ -119,7 +119,7 @@
 <form @submit.prevent="submit" action="?">
 <p>
 <label>Message:<br>
-<textarea ref="textarea" class="textarea input input--full" type="phone" v-model="whatsapp.message" placeholder="Say hello!"></textarea></label>
+<textarea ref="textarea" class="textarea input input--full" type="phone" v-model="whatsapp.text" placeholder="Say hello!"></textarea></label>
 </p>
 <p>
 <button class="button">Start chat</button>
@@ -173,16 +173,16 @@
       
               },
               submit: function(){
-                if(!this.whatsapp.message){
+                if(!this.whatsapp.text){
                   alert('Please type something');
                   this.$refs.textarea.focus();
                   return;
                 }
       
                 this.status = 'end';
+                wasap_send({ text: this.whatsapp.text });
                 setTimeout(()=>{
                   el._tippy.hide();
-                  wasap_send({ message: this.whatsapp.message });
                 }, 1500);
               }
             }

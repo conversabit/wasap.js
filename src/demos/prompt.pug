@@ -19,7 +19,7 @@ block codedemo
     |       e.preventDefault();
     |       var prompt_message = prompt('Say hello!', 'Hello from wasap.js');
     |       if(!prompt_message) return;
-    |       wasap_send({ message: prompt_message });
+    |       wasap_send({ text: prompt_message });
     |     });
     |   }
     | })
@@ -33,7 +33,7 @@ block run
           e.preventDefault();
           var prompt_message = prompt('Say hello!', 'Hello from wasap.js');
           if(!prompt_message) return;
-          wasap_send({ message: prompt_message });
+          wasap_send({ text: prompt_message });
         });
       }
     })

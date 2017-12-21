@@ -31,9 +31,9 @@
   elementCallback: function(el, wasap_send){
     el.addEventListener('click', function(e){
       e.preventDefault();
-      var prompt_message = prompt('Say hello!', 'Hello from wasap.js');
-      if(!prompt_message) return;
-      wasap_send({ message: prompt_message });
+      var prompt_phone = prompt('Enter a number, or use the default', el.dataset.whatsapp);
+      if(!prompt_phone) return;
+      wasap_send({ phone: prompt_phone });
     });
   }
 })</pre>
