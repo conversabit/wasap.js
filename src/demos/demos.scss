@@ -25,6 +25,7 @@ html, body{
     width: 100%;
   }
 }
+
 textarea{
   min-width: 100%;
   min-height: 55px;
@@ -80,6 +81,8 @@ pre{
   display: flex;
   min-height: 220px;
   position: relative;
+  box-sizing: border-box;
+  padding: 5px 10px;
   &-cont{
     box-sizing: border-box;
     flex: 1;
@@ -136,6 +139,7 @@ $grid-gap: 10px;
     grid-column-gap: 0;
     grid-row-gap: 10px;
     .grid--col{
+      padding: 0;
     }
   }
 }

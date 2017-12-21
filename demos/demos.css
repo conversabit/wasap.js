@@ -30,7 +30,7 @@ pre.code-html:before { content: 'HTML'; }
 
 pre.code-js:before { content: 'JavaScript'; }
 
-.demo--area { background: #eee; display: flex; min-height: 220px; position: relative; }
+.demo--area { background: #eee; display: flex; min-height: 220px; position: relative; box-sizing: border-box; padding: 5px 10px; }
 
 .demo--area-cont { box-sizing: border-box; flex: 1; align-self: center; }
 
@@ -47,4 +47,5 @@ pre.code-js:before { content: 'JavaScript'; }
 @media screen and (max-width: 960px) { .wrap { padding-right: 7px; padding-left: 7px; } }
 
 @media screen and (max-width: 640px) { .iblock-if-mobile { display: inline-block; }
-  .grid { display: grid; grid-template-columns: 100%; grid-column-gap: 0; grid-row-gap: 10px; } }
+  .grid { display: grid; grid-template-columns: 100%; grid-column-gap: 0; grid-row-gap: 10px; }
+  .grid .grid--col { padding: 0; } }
