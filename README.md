@@ -1,7 +1,7 @@
 wasap.js
 ====
 
-![wasap.js](img/wasapjs.gif)
+<img src="img/wasapjs.gif" alt="wasap.js" width="565">
 
 [**wasap.js**](https://www.conversabit.com/wasap.js/) • [Demos](https://www.conversabit.com/wasap.js/demos/)
 
