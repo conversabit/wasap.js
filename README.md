@@ -1,6 +1,10 @@
 wasap.js
 ====
 
+![wasap.js](img/wasapjs.gif)
+
+[**wasap.js**](https://www.conversabit.com/wasap.js/) • [Demos](https://www.conversabit.com/wasap.js/demos/)
+
 ### Installation
 
 First, add the `data-whatsapp` attribute to the nodes you want to be clickable:
@@ -53,3 +57,4 @@ The element that will be appended to the target element, which tag name should i
 ### Roadmap
 
 - [ ] Tests
+- [ ] Figure out what to do with WhatsApp Web
